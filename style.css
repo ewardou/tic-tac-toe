@@ -1,0 +1,24 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height:100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    background-color: rgb(253, 195, 87);
+}
+.container{
+    display: grid;
+    width: min-content;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 10px;
+    border: 1px solid black;
+    background-color: black;
+}
+.container>div{
+    background-color: white;
+}
