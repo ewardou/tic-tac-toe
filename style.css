@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 *{
     margin:0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
 }
 body{
     min-height:100vh;
     display: grid;
     align-content: center;
     justify-content: center;
-    background-color: rgb(253, 195, 87);
+    background-color: rgb(255, 191, 72);
 }
 .container{
     display: grid;
@@ -21,4 +24,9 @@ body{
 }
 .container>div{
     background-color: white;
+    font-size:9rem;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    color: rgba(0,0,0,0.8)
 }
