@@ -35,3 +35,8 @@ body{
     transform: scale(1.05);
     transition: 150ms ease-in-out;
 }
+.winner{
+    border:8px solid rgb(50, 230, 50);
+    transform: scale(1.05);
+    transition: 150ms ease-in-out;
+}
