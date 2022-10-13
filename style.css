@@ -9,6 +9,7 @@
 body{
     min-height:100vh;
     display: grid;
+    gap: 10px;
     align-content: center;
     justify-content: center;
     background-color: rgb(255, 191, 72);
@@ -27,16 +28,45 @@ body{
     font-size:9rem;
     display: grid;
     align-content: center;
-    cursor: pointer;
     justify-content: center;
     color: rgba(0,0,0,0.8)
 }
-.container>div:hover{
+.container>div.available:hover{
     transform: scale(1.05);
+    cursor: pointer;
     transition: 150ms ease-in-out;
 }
 .winner{
     border:8px solid rgb(50, 230, 50);
     transform: scale(1.05);
     transition: 150ms ease-in-out;
+}
+.result{
+    height: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px white;
+}
+div>button{
+    border-radius: 50%;
+    border: 0;
+    background-color: white;
+    transform: scale(0);
+}
+div>button.restart{
+    transform: scale(1);
+}
+div>button.restart:hover{
+    transform: scale(1.1);
+    background-color: rgb(228, 225, 225);
+    transition: 150ms ease-in-out;
+}
+div>button.restart:active{
+    transform: scale(0.9);
+    background-color: rgb(228, 225, 225);
+    transition: 150ms ease-in-out;    
+}
+body>div:last-of-type{
+    text-align: center;
 }
