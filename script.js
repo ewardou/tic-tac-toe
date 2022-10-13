@@ -18,6 +18,7 @@ let gameBoard=(function(){
     let markCell=(event)=>{
         event.target.textContent=gameController.getCurrentPlayer().getMarker();
         updateBoardValues(event);
+        gameController.checkWinner();
         gameController.changeCurrentPlayer();
         event.target.removeEventListener("click",markCell);
     };
@@ -52,6 +53,7 @@ const Markers=(function(){
 
 const gameController=(function(){
     let groupOfPlayers=[];
+    let resultDisplay=document.querySelector(".result");
     let addNewPlayer=(newPlayer)=>groupOfPlayers.push(newPlayer);
     let currentPlayer;
     let selectFirstPlayer=()=>{
@@ -66,11 +68,48 @@ const gameController=(function(){
         };
     };
     let getCurrentPlayer=()=>currentPlayer;
+
+    let checkWinner=function(){
+        let currentBoard=gameBoard.getBoard();
+
+
+        const rowOne=currentBoard[0]+currentBoard[1]+currentBoard[2];
+        const rowTwo=currentBoard[3]+currentBoard[4]+currentBoard[5];
+        const rowThree=currentBoard[6]+currentBoard[7]+currentBoard[8];
+        if (rowOne==="XXX" || rowOne==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        } else if (rowTwo==="XXX" || rowTwo==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        } else if (rowThree==="XXX" || rowThree==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        }
+
+        const columnOne=currentBoard[0]+currentBoard[3]+currentBoard[6];
+        const columnTwo=currentBoard[1]+currentBoard[4]+currentBoard[7];
+        const columnThree=currentBoard[2]+currentBoard[5]+currentBoard[8];
+        if (columnOne==="XXX" || columnOne==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        } else if (columnTwo==="XXX" || columnTwo==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        } else if (columnThree==="XXX" || columnThree==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        }
+
+        const diagonalOne=currentBoard[0]+currentBoard[4]+currentBoard[8];
+        const diagonalTwo=currentBoard[2]+currentBoard[4]+currentBoard[6];
+        if (diagonalOne==="XXX" || diagonalOne==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        } else if (diagonalTwo==="XXX" || diagonalTwo==="OOO"){
+            resultDisplay.textContent="We have a winner";
+        }
+    };
+
     return {
         addNewPlayer,
         changeCurrentPlayer,
         selectFirstPlayer,
-        getCurrentPlayer
+        getCurrentPlayer,
+        checkWinner
     }
 })();
 
