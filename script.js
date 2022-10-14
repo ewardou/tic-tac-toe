@@ -16,8 +16,8 @@ let gameBoard=(function(){
     let markCell=(event)=>{
         event.target.textContent=gameController.getCurrentPlayer().getMarker();
         updateBoardValues(event);
-        gameController.checkWinner();
         gameController.changeCurrentPlayer();
+        gameController.checkWinner();
         event.target.removeEventListener("click",markCell);
         event.target.classList.remove("available");
     };
@@ -59,6 +59,7 @@ let gameBoard=(function(){
         });
         restartButton.classList.remove("restart");
         document.querySelector(".result").textContent="";
+        gameController.selectFirstPlayer();
     };
 
     restartButton.addEventListener("click",restartBoard);
@@ -97,6 +98,7 @@ const gameController=(function(){
     let selectFirstPlayer=()=>{
         const index=Math.floor(Math.random()*2);
         currentPlayer=groupOfPlayers[index];
+        resultDisplay.textContent=`${currentPlayer.getName()}'s turn`;
     };
     let changeCurrentPlayer=()=>{
         if (currentPlayer===groupOfPlayers[0]){
@@ -104,8 +106,34 @@ const gameController=(function(){
         } else {
             currentPlayer=groupOfPlayers[0];
         };
+        resultDisplay.textContent=`${currentPlayer.getName()}'s turn`;
     };
     let getCurrentPlayer=()=>currentPlayer;
+
+    let startGamePvP=function(){
+        let player1Name=document.querySelector("#player1").value;
+        let player2Name=document.querySelector("#player2").value;
+
+        if (player1Name===""){player1Name="Player 1"};
+        if (player2Name===""){player2Name="Player 2"};
+        let player1=Player(player1Name);
+        let player2=Player(player2Name);
+
+        addNewPlayer(player1);
+        addNewPlayer(player2);
+
+        let player1NameDisplay=document.querySelector(".player1>p");
+        player1NameDisplay.textContent=`${groupOfPlayers[0].getName()} ( X )`;
+
+        let player2NameDisplay=document.querySelector(".player2>p");
+        player2NameDisplay.textContent=`${groupOfPlayers[1].getName()} ( O )`;
+
+        selectFirstPlayer();
+        document.querySelector(".menu").setAttribute("style","transform:scale(0)");
+    }
+
+    let startGameButton=document.querySelector(".start");
+    startGameButton.addEventListener("click",startGamePvP);
 
     let checkWinner=function(){
         let currentBoard=gameBoard.getBoard();
@@ -115,15 +143,18 @@ const gameController=(function(){
         const rowTwo=currentBoard[3]+currentBoard[4]+currentBoard[5];
         const rowThree=currentBoard[6]+currentBoard[7]+currentBoard[8];
         if (rowOne==="XXX" || rowOne==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer(); // Return to the winner
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(0,1,2);
         } else if (rowTwo==="XXX" || rowTwo==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(3,4,5);
         } else if (rowThree==="XXX" || rowThree==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(6,7,8);
         }
@@ -132,15 +163,18 @@ const gameController=(function(){
         const columnTwo=currentBoard[1]+currentBoard[4]+currentBoard[7];
         const columnThree=currentBoard[2]+currentBoard[5]+currentBoard[8];
         if (columnOne==="XXX" || columnOne==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(0,3,6);
         } else if (columnTwo==="XXX" || columnTwo==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(1,4,7);
         } else if (columnThree==="XXX" || columnThree==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(2,5,8);
         }
@@ -148,11 +182,13 @@ const gameController=(function(){
         const diagonalOne=currentBoard[0]+currentBoard[4]+currentBoard[8];
         const diagonalTwo=currentBoard[2]+currentBoard[4]+currentBoard[6];
         if (diagonalOne==="XXX" || diagonalOne==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(0,4,8);
         } else if (diagonalTwo==="XXX" || diagonalTwo==="OOO"){
-            resultDisplay.textContent="We have a winner";
+            changeCurrentPlayer();
+            resultDisplay.textContent=`${currentPlayer.getName()} wins`;
             gameBoard.stopPlaying();
             return gameBoard.highlightWinnerCells(2,4,6);
         }
@@ -171,11 +207,3 @@ const gameController=(function(){
         checkWinner
     }
 })();
-
-let eduardo=Player("eduardo");
-let andres=Player("andres");
-
-gameController.addNewPlayer(eduardo);
-gameController.addNewPlayer(andres);
-
-gameController.selectFirstPlayer();
