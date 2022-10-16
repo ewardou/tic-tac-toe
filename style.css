@@ -114,8 +114,16 @@ body>div:last-of-type{
     display: grid;
     justify-items: center;
     align-content: center;
-    grid-auto-rows: 50px;
-    gap:10px;
+    grid-template-columns: 1fr 1fr;
+}
+.menu div{
+    display: grid;
+    justify-items: center;
+    grid-auto-rows: min-content;
+    gap:15px;
+}
+.menu img{
+    height: 80px;
 }
 .menu label{
     font-weight: bold;
